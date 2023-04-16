@@ -4,7 +4,7 @@ const SignupInput = ({id, label, type, name, placeholder, handleChange}) => {
             <label htmlFor={id} className="signup_input_label">
                 {label}
             </label> <br />
-            <input type={type} onChange={event => handleChange(event)} name={name} id={id} placeholder={placeholder}/>
+            <input type={type} onChange={event => handleChange(event)} name={name} id={id} placeholder={placeholder} required/>
             <br />
             <br />
         </>

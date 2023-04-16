@@ -1,7 +1,17 @@
+import { useContext } from "react";
+import MerchantHome from "../merchant/MerchantHome";
+import LogisticsHome from "../logistics/LogisticsHome";
+import StaffHome from "../staff/StaffHome";
+
 const Home = () => {
+
+    const { accountType } = useContext(AccountTypeContext);
+
     return (
         <>
-            <h2>Komitex Stock - HOME</h2>
+            { accountType === 'Logistics' && <LogisticsHome /> }
+            { accountType === 'Merchant' && <MerchantHome /> }
+            { accountType === 'Staff' && <StaffHome /> }
         </>
     );
 }

@@ -1,15 +1,22 @@
 import Input from "../components/Input";
 import { useState } from "react";
+import axios from "axios";
 
 const Signup = () => {
-
+    // state to store user info
     const [userInfo, setUserInfo] = useState({
         fullname: '',
         email_address: '',
         phone_number: '',
         password: '',
-        retype_password: ''
+        retype_password: '',
+        account_type: 'Merchant'
     });
+
+    // state to store response data from server
+    const [responseData, setResponseData] = useState(null);
+
+    console.log(responseData);
 
     // function to handle input change and set userInfo object
     const handleChange = (event) => {
@@ -22,6 +29,7 @@ const Signup = () => {
             ...userInfo,
             [name]: value
         });
+
     }
 
     const inputFeilds = [
@@ -42,7 +50,7 @@ const Signup = () => {
         {
             id: 'phone_number',
             label: 'Phone Number',
-            type: 'tel',
+            type: 'number',
             name: 'phone_number',
             placeholder: '+2348123456789'
         },
@@ -62,9 +70,20 @@ const Signup = () => {
         },
     ]
 
-    const submitUserInfo = (event) => {
+    const submitUserInfo = async (event) => {
         event.preventDefault();
-        console.log(userInfo);
+        console.table(userInfo);
+
+        try {
+            const response = await axios.post(`http://localhost/komitexstock/api/pages/${userInfo.account_type}/signup.php`, userInfo);
+
+            setResponseData(response.data);
+            console.log(response.data);
+            
+        } catch (error) {
+            console.error(error);
+        }
+
     }
 
     return ( 
@@ -85,9 +104,9 @@ const Signup = () => {
                     ))
                 }
                 <label style={{marginRight: '10px'}} htmlFor="account_type">Select your account type</label>
-                <select name="account_type" id="account_type" onChange={event => handleChange(event)}>
+                <select defaultValue={userInfo.account_type} name="account_type" id="account_type" onChange={event => handleChange(event)} required >
                     <option value="Logistics">Logistics</option>
-                    <option selected value="Merchant">Merchant/Seller</option>
+                    <option value="Merchant">Merchant/Seller</option>
                     <option value="Staff">Staff</option>
                 </select>
                 <br />
