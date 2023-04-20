@@ -11,4 +11,4 @@ const SignupInput = ({id, label, type, name, placeholder, handleChange}) => {
     )
 }
 
-export default SignupInput;
+export default SignupInput; 

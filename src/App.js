@@ -5,16 +5,17 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import { createContext, useState } from "react";
 
+// account type context
+export const AccountTypeContext = createContext();
+
 const App = () => {
-
-    // account type context
-    const AccountTypeContext = createContext();
-
     // account type state
-    const [accountType, setAccountType] = useState('logistics');
+    const [accountType] = useState('Staff');
+    // eslint-disable-next-line
+    // console.log(setAccountType);
 
     return (
-        <AccountTypeContext.Provider value={{ accountType}}>
+        <AccountTypeContext.Provider value={accountType}>
             <BrowserRouter>
                 <Routes>
                 <Route path="/" element={ <Layout /> }>

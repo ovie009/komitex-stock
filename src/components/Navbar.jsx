@@ -7,6 +7,7 @@ const Navbar = () => {
                 display: 'flex',
                 gap: '10px',
             }}>
+                <Link to="/" >Home</Link>
                 <Link to="/signup" >signup</Link>
                 <Link to="/login" >login</Link>
             </div>
