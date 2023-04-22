@@ -1,13 +1,33 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import axios from "axios";
+import setSession from "../utils/setSession";
+import { useNavigate } from "react-router-dom";
+import getSessionToken from "../utils/getSessionToken";
 
 const Login = () => {
 
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const session_token = getSessionToken();
+        if (session_token) {
+            navigate('/');            
+        }
+    });
+
+
+    // user info state
     const [userInfo, setUserInfo] = useState({
         email_address: '',
         password: ''
     });
 
-    
+    // variable to indicate wrong email
+    const [wrongEmail, setWrongEmail] = useState(false);
+
+    // variable to indicate wrong password
+    const [wrongPassword, setWrongPassword] = useState(false);
+
     // function to handle input change and set userInfo object
     const handleChange = (event) => {
         // get input name and value
@@ -22,21 +42,58 @@ const Login = () => {
 
     }
 
-    const handleLogin = (event) => {
-        event.preventDefault();
+    const handleResponse = (response) => {
+        if (response === 'incorrect password') {
+            return setWrongPassword(true);
+        } else if (response === 'user doesn\'t exist') {
+            return setWrongEmail(true);
+        }
+
+        setSession(response);
+        return navigate('/');
     }
+
+    const handleLogin = async (event, userInfo) => {
+        event.preventDefault();
+        try {
+            const response = await axios.post(`http://localhost/komitexstock/api/pages/common/login.php`, userInfo);
+
+            handleResponse(response.data);
+
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    
+    // console.log(responseData);
 
     return (
         <div>
             <h1>Login</h1>
-            <form action="" onSubmit={event => handleLogin(event)}>
+            <form onSubmit={event => handleLogin(event, userInfo)}>
                 <div>
                     <label htmlFor="email_address">Email Address</label>
-                    <input type="email" onChange={event => handleChange(event)} name="email_address" id="email_address" placeholder="johndoe@gmail.com" required />
+                    <input 
+                        className={wrongEmail ? "wrong" : ""}
+                        type="email" 
+                        onChange={event => handleChange(event)} 
+                        name="email_address" 
+                        id="email_address" 
+                        placeholder="johndoe@gmail.com" 
+                        required 
+                    />
                 </div>
                 <div>
                     <label htmlFor="password">Password</label>
-                    <input type="password" onChange={event => handleChange(event)} name="password" id="password"  placeholder="type your password" required />
+                    <input
+                        className={wrongPassword ? "wrong" : ""}
+                        type="password" 
+                        onChange={event => handleChange(event)} 
+                        name="password" 
+                        id="password" 
+                        placeholder="type your password" 
+                        required 
+                    />
                 </div>
                 <div className="login_button_wrapper">
                     <button type="submit">login</button>

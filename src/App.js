@@ -4,15 +4,22 @@ import Signup from './pages/Signup';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import { createContext, useState } from "react";
+// import useSession from "./utils/useSession";
 
 // account type context
 export const AccountTypeContext = createContext();
 
 const App = () => {
-    // account type state
-    const [accountType] = useState('Staff');
-    // eslint-disable-next-line
-    // console.log(setAccountType);
+    console.log(localStorage.getItem('account_type'));
+
+    const [accountType] = useState(() => {
+        const savedAccountType = localStorage.getItem('account_type');
+        if (savedAccountType) {
+            return JSON.parse(savedAccountType);
+        } else {
+            return '';
+        }
+    });
 
     return (
         <AccountTypeContext.Provider value={accountType}>

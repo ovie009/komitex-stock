@@ -1,8 +1,13 @@
 import Input from "../components/Input";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import getSessionToken from "../utils/getSessionToken";
 
 const Signup = () => {
+
+    const navigate = useNavigate();
+
     // state to store user info
     const [userInfo, setUserInfo] = useState({
         fullname: '',
@@ -13,8 +18,15 @@ const Signup = () => {
         account_type: 'Merchant'
     });
 
+    useEffect(() => {
+        const session_token = getSessionToken();
+        if (session_token) {
+            navigate('/');            
+        }
+    });
+
     // state to store response data from server
-    const [responseData, setResponseData] = useState(null);
+    const [responseData, setResponseData] = useState('');
 
     console.log(responseData);
 
@@ -72,7 +84,7 @@ const Signup = () => {
 
     const submitUserInfo = async (event) => {
         event.preventDefault();
-        console.table(userInfo);
+        // console.table(userInfo);
 
         try {
             const response = await axios.post(`http://localhost/komitexstock/api/pages/${userInfo.account_type}/signup.php`, userInfo);
