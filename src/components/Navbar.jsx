@@ -1,17 +1,32 @@
 import { Link } from "react-router-dom";
-import endSession from "../utils/endSession";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { AccountTypeContext } from "../App";
 
 const Navbar = () => {
 
     const navigate = useNavigate();
 
-    const handleLogout = () => {
-        endSession();
+    // eslint-disable-next-line
+    const {accountType, setAccountType} = useContext(AccountTypeContext);
 
+
+    const endSession = () => {
+        localStorage.removeItem('session_token');
+        localStorage.removeItem('account_type');
+        localStorage.removeItem('company_id');
+        localStorage.removeItem('fullname');
+        localStorage.removeItem('phone_number');
+        localStorage.removeItem('preferred_page');
+        
+        // set accountype to default value
+        setAccountType('');
+    
         // navigate to home page
         navigate('/');
-    }
+    };
+
+
 
     return (
         <nav>
@@ -20,9 +35,12 @@ const Navbar = () => {
                 gap: '10px',
             }}>
                 <Link to="/" >Home</Link>
-                <Link to="/signup" >signup</Link>
-                <Link to="/login" >login</Link>
-                <button onClick={() => handleLogout()}>logout</button>
+                {accountType === '' && ( <>
+                        <Link to="/signup" >signup</Link>
+                        <Link to="/login" >login</Link>
+                    </> )
+                }
+                <button onClick={() => endSession()}>logout</button>
 
             </div>
         </nav>

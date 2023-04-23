@@ -8,7 +8,8 @@ import { AccountTypeContext } from "../App";
 
 const Home = () => {
 
-    const accountType = useContext(AccountTypeContext);
+    const accountType = useContext(AccountTypeContext).accountType;
+
     console.log(accountType);
     return (
         <>

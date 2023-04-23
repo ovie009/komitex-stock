@@ -1,20 +1,25 @@
-import { useState, useEffect } from "react"
-import axios from "axios";
-import setSession from "../utils/setSession";
+import { useState, useEffect, useContext } from "react"
 import { useNavigate } from "react-router-dom";
-import getSessionToken from "../utils/getSessionToken";
+import axios from "axios";
+import setSession from "../hooks/setSession";
+import getSessionToken from "../hooks/getSessionToken";
+import { AccountTypeContext } from "../App";
 
 const Login = () => {
 
+    // use navigate
     const navigate = useNavigate();
 
+    
     useEffect(() => {
         const session_token = getSessionToken();
         if (session_token) {
             navigate('/');            
         }
     });
-
+    
+    // eslint-disable-next-line
+    const setAccountType = useContext(AccountTypeContext).setAccountType;
 
     // user info state
     const [userInfo, setUserInfo] = useState({
@@ -39,7 +44,6 @@ const Login = () => {
             ...userInfo,
             [name]: value
         });
-
     }
 
     const handleResponse = (response) => {
@@ -50,6 +54,10 @@ const Login = () => {
         }
 
         setSession(response);
+
+        // set account type for account type context
+        setAccountType(response.account_type);
+
         return navigate('/');
     }
 
