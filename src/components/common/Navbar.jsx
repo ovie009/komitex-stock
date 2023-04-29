@@ -35,15 +35,24 @@ const Navbar = () => {
                 display: 'flex',
                 gap: '10px',
             }}>
-                <Link to="/" >Home</Link>
-                {accountType === '' && ( <>
-                        <Link to="/signup" >signup</Link>
-                        <Link to="/login" >login</Link>
+                {accountType === null ? ( <>
+                        <Link to="/signup">signup</Link>
+                        <Link to="/login">login</Link>
+                    </> ) : ( <>
+                        <Link to="/" >Home</Link>
+                        <Link to="/activities">activities</Link>
+                        <Link to="/dispatch">dispatch</Link>
+                        <Link to="/inventory">inventory</Link>
+                        <Link to="/location">location</Link>
+                        <Link to="/report">report</Link>
+                        <Link to="/staffs">staffs</Link>
+                        <Link to="/stock">stock</Link>
+                        <Link to="/waybill">waybill</Link>
+                        <Link to="/teams">teams</Link>
+                        <button onClick={() => endSession()}>logout</button>
                     </> )
                 }
-                <button onClick={() => endSession()}>logout</button>
-
-            </div>
+``            </div>
         </nav>
     );
 }

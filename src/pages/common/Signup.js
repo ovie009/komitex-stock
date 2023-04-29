@@ -1,8 +1,8 @@
-import Input from "../components/common/Input";
+import Input from "../../components/common/Input";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import getSessionToken from "../functions/getSessionToken";
+import getSessionToken from "../../functions/getSessionToken";
 
 const Signup = () => {
 
