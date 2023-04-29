@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
-import { AccountTypeContext } from "../App";
+import { AccountTypeContext } from "../../App";
 
 const Navbar = () => {
 
@@ -17,6 +17,7 @@ const Navbar = () => {
         localStorage.removeItem('company_id');
         localStorage.removeItem('fullname');
         localStorage.removeItem('phone_number');
+        localStorage.removeItem('company_id');
         localStorage.removeItem('preferred_page');
         
         // set accountype to default value

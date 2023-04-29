@@ -1,8 +1,8 @@
 import { useState, useEffect, useContext } from "react"
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import setSession from "../hooks/setSession";
-import getSessionToken from "../hooks/getSessionToken";
+import setSession from "../functions/setSession";
+import getSessionToken from "../functions/getSessionToken";
 import { AccountTypeContext } from "../App";
 
 const Login = () => {
