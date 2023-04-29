@@ -11,6 +11,7 @@ import Signup from './pages/common/Signup';
 import Staffs from './pages/common/Staffs';
 import Stock from './pages/common/Stock';
 import Waybill from './pages/common/Waybill';
+import Teams from './pages/common/Teams';
 import { createContext, useState } from "react";
 
 // account type context
@@ -53,6 +54,8 @@ const App = () => {
                     <Route path="waybill" element={<Waybill />} />
                     {/* login route */}
                     <Route path="login" element={<Login />} />
+                    {/* teams route */}
+                    <Route path="teams" element={<Teams />} />
                 </Route>
                 </Routes>
             </BrowserRouter>

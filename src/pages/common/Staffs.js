@@ -7,7 +7,7 @@ const Staffs = () => {
 
     const accountType = useContext(AccountTypeContext).accountType
 
-    // only logistics have a staff page
+    // only logistics have a staff
     if (accountType === 'Logistics') {
         return <LogisticsStaffs />
     } else {
