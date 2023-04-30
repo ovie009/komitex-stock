@@ -6,12 +6,13 @@ import Inventory from "./pages/common/Inventory";
 import Layout from './pages/common/Layout';
 import Location from './pages/common/Location'
 import Login from './pages/common/Login';
-import Report from './pages/common/Report';
+import Analytics from './pages/common/Analytics';
 import Signup from './pages/common/Signup';
 import Staffs from './pages/common/Staffs';
 import Stock from './pages/common/Stock';
 import Waybill from './pages/common/Waybill';
 import Teams from './pages/common/Teams';
+import { CssBaseline } from "@mui/material";
 import { createContext, useState } from "react";
 
 // account type context
@@ -29,6 +30,7 @@ const App = () => {
     return (
         <AccountTypeContext.Provider value={{accountType, setAccountType}}>
             <BrowserRouter>
+                <CssBaseline />
                 <Routes>
                 <Route path="/" element={ <Layout /> }>
                     {/* home route */}
@@ -43,7 +45,7 @@ const App = () => {
                     {/* location route */}
                     <Route path="location" element={ <Location /> } />
                     {/* report route */}
-                    <Route path="report" element={ <Report /> } />
+                    <Route path="analytics" element={ <Analytics /> } />
                     {/* staffs route */}
                     <Route path="staffs" element={ <Staffs /> } />
                     {/* stock route */}

@@ -1,20 +1,20 @@
 import Reroute from "./Reroute";
-import LogisticsReport from '../logistics/LogisticsReport';
-import MerchantReport from '../merchant/MerchantReport';
+import LogisticsAnalytics from '../logistics/LogisticsAnalytics';
+import MerchantAnalytics from '../merchant/MerchantAnalytics';
 import { useContext } from "react";
 import { AccountTypeContext } from "../../App";
 
-const Report = () => {
+const Analytics = () => {
 
     const accountType = useContext(AccountTypeContext).accountType
 
     if (accountType === 'Logistics') {
-        return <LogisticsReport />
+        return <LogisticsAnalytics />
     } else if (accountType === 'Merchant') {
-        return <MerchantReport />
+        return <MerchantAnalytics />
     } else {
         return <Reroute />
     }
 }
 
-export default Report;
+export default Analytics;
