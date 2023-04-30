@@ -1,4 +1,4 @@
-import LandingPage from "./LandingPage";
+import Reroute from "./Reroute";
 import LogisticsWaybill from '../logistics/LogisticsWaybill';
 import MerchantWaybill from '../merchant/MerchantWaybill';
 import StaffWaybill from '../staff/StaffWaybill';
@@ -16,7 +16,7 @@ const Waybill = () => {
     } else if (accountType === 'Staff') {
         return <StaffWaybill />
     } else {
-        return <LandingPage />
+        return <Reroute />
     }
 }
 

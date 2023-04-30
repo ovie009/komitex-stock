@@ -7,7 +7,7 @@ import { AccountTypeContext } from "../../App";
 
 const Home = () => {
 
-    const accountType = useContext(AccountTypeContext).accountType
+    const accountType = useContext(AccountTypeContext).accountType;
 
     if (accountType === 'Logistics') {
         return <LogisticsHome />

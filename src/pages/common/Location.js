@@ -1,4 +1,4 @@
-import LandingPage from "./LandingPage";
+import Reroute from "./Reroute";
 import LogisticsLocation from '../logistics/LogisticsLocation';
 import MerchantLocation from '../merchant/MerchantLocation';
 import StaffLocation from '../staff/StaffLocation';
@@ -16,7 +16,7 @@ const Location = () => {
     } else if (accountType === 'Staff') {
         return <StaffLocation />
     } else {
-        return <LandingPage />
+        return <Reroute />
     }
 }
 

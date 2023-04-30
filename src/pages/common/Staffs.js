@@ -1,4 +1,4 @@
-import LandingPage from "./LandingPage";
+import Reroute from "./Reroute";
 import LogisticsStaffs from '../logistics/LogisticsStaffs';
 import { useContext } from "react";
 import { AccountTypeContext } from "../../App";
@@ -11,7 +11,7 @@ const Staffs = () => {
     if (accountType === 'Logistics') {
         return <LogisticsStaffs />
     } else {
-        return <LandingPage />
+        return <Reroute />
     }
 }
 

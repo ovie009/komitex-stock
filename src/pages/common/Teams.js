@@ -1,4 +1,4 @@
-import LandingPage from "./LandingPage";
+import Reroute from "./Reroute";
 import MerchantTeams from '../merchant/MerchantTeams';
 import { useContext } from "react";
 import { AccountTypeContext } from "../../App";
@@ -10,7 +10,7 @@ const Teams = () => {
     if (accountType === 'Merchant') {
         return <MerchantTeams />
     } else {
-        return <LandingPage />
+        return <Reroute />
     }
 }
 

@@ -1,4 +1,4 @@
-import LandingPage from "./LandingPage";
+import Reroute from "./Reroute";
 import LogisticsStock from '../logistics/LogisticsStock';
 import MerchantStock from '../merchant/MerchantStock';
 import StaffStock from '../staff/StaffStock';
@@ -16,7 +16,7 @@ const Stock = () => {
     } else if (accountType === 'Staff') {
         return <StaffStock />
     } else {
-        return <LandingPage />
+        return <Reroute />
     }
 }
 

@@ -1,4 +1,4 @@
-import LandingPage from "./LandingPage";
+import Reroute from "./Reroute";
 import LogisticsDispatch from '../logistics/LogisticsDispatch';
 import MerchantDispatch from '../merchant/MerchantDispatch';
 import StaffDispatch from '../staff/StaffDispatch';
@@ -16,7 +16,7 @@ const Dispatch = () => {
     } else if (accountType === 'Staff') {
         return <StaffDispatch />
     } else {
-        return <LandingPage />
+        return <Reroute />
     }
 }
 

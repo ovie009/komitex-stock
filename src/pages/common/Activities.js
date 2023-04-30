@@ -1,4 +1,4 @@
-import LandingPage from "./LandingPage";
+import Reroute from "./Reroute";
 import LogisticsActivities from '../logistics/LogisticsActivities';
 import MerchantActivities from '../merchant/MerchantActivities';
 import StaffActivities from '../staff/StaffActivities';
@@ -7,7 +7,7 @@ import { AccountTypeContext } from "../../App";
 
 const Activities = () => {
 
-    const accountType = useContext(AccountTypeContext).accountType
+    const accountType = useContext(AccountTypeContext).accountType;
 
     if (accountType === 'Logistics') {
         return <LogisticsActivities />
@@ -16,7 +16,7 @@ const Activities = () => {
     } else if (accountType === 'Staff') {
         return <StaffActivities />
     } else {
-        return <LandingPage />
+        return <Reroute />
     }
 }
 
