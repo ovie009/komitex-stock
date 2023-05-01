@@ -92,7 +92,7 @@ const Login = () => {
     
             startSession(response);
             setAccountType(response.account_type);
-            window.location.reload();
+            navigate('/' + response.preferred_page);
         }
     }
     

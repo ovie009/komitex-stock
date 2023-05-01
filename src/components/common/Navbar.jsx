@@ -133,7 +133,7 @@ const Navbar = () => {
                                 fontWeight: 'bold',
                                 display: 'flex',
                                 gap: '10px',
-                                color: `${location.pathname.toLowerCase === ('/account').toLowerCase ? "komitexLight.main" : "komitexLight.muted"}`,
+                                color: `${location.pathname === '/Account' ? "komitexLight.main" : "komitexLight.muted"}`,
                             }}
                             fullWidth
                         >

@@ -12,8 +12,6 @@ const Signup = () => {
     // state to check if fullname field is empty
     const [wrongFullname, setWrongFullname] = useState(false);
     // state to indicate wrong username or empty username
-    const [wrongUsername, setWrongUsername] = useState(false);
-    // state to indicate wrong phone number
     const [wrongPhoneNumber, setWrongPhoneNumber] = useState(false);
     // state to indicate wrong email
     const [wrongEmail, setWrongEmail] = useState(false);
@@ -53,7 +51,6 @@ const Signup = () => {
     // user info state
     const [userInfo, setUserInfo] = useState({
         fullname: '',
-        username: '',
         phone_number: '',
         email_address: '',
         account_type: 'Merchant',
@@ -66,10 +63,6 @@ const Signup = () => {
         switch (name) {
             case 'fullname':
                 if (wrongFullname === true) setWrongFullname(false);
-                break;
-
-            case 'username':
-                if (wrongUsername === true) setWrongUsername(false);
                 break;
 
             case 'phone_number':
@@ -117,14 +110,50 @@ const Signup = () => {
         return false;
     }
 
-    console.table(userInfo)
+    const processResponseError = (response) => {
+        switch (response) {
+            case 'invalid fullname':
+                setWarning(response);
+                setWrongFullname(true);
+                break;
+        
+            case 'invalid phone number':
+                setWarning(response);
+                setWrongPhoneNumber(true);
+                break;
+        
+            case 'invalid email address':
+                setWarning(response);
+                setWrongEmail(true);
+                break;
+        
+            case 'email already exist':
+                setWarning(response);
+                setWrongEmail(true);
+                break;
+        
+            case 'password does not match':
+                setWarning(response);
+                setWrongRetypePassword(true);
+                break;
+                
+            case 'invalid account type':
+                setWarning(response);
+                break;
+                
+            default:
+                setWarning("something unexpected happened!");
+                break;
+        }
+    }
+
+    // console.table(userInfo);
 
     // handle user signup
     const handleSignup = async () => {
 
         if (checkEmptyKeys(userInfo)) {
             if (userInfo.fullname === '') setWrongFullname(true);
-            if (userInfo.username === '') setWrongUsername(true);
             if (userInfo.phone_number === '') setWrongPhoneNumber(true);
             if (userInfo.email_address === '') setWrongEmail(true);
             if (userInfo.password === '') setWrongPassword(true);
@@ -134,17 +163,18 @@ const Signup = () => {
 
         let response = await signupNewUser(userInfo);
         
-        if (response) {
-            if (response === 'incorrect password') {
-                return setWrongPassword(true);
-            } else if (response === 'user doesn\'t exist') {
-                return setWrongEmail(true);
-            }
-    
+        console.log(response);
+        if (typeof response === 'string') {
+            return processResponseError(response);
+        }
+        
+        if (typeof response === 'object') {
             startSession(response);
             setAccountType(response.account_type);
-            window.location.reload();
-        }
+            
+            // navigate to home
+            navigate('/Home');
+        } 
     }
 
     const inputs = [
@@ -152,25 +182,21 @@ const Signup = () => {
             error: wrongFullname,
             label: 'Fullname',
             name: 'fullname',
+            type: 'text',
         }, 
-        {
-            error: wrongUsername,
-            label: 'Username',
-            name: 'username',
-        },
         {
             error: wrongPhoneNumber,
             label: 'Phone Number',
             name: 'phone_number',
+            type: 'number',
         },
         {
             error: wrongEmail,
             label: 'Email Address',
             name: 'email_address',
+            type: 'email',
         }
     ];
-
-    console.log(wrongRetypePassword);
 
     const passwordInputs = [
         {
@@ -206,8 +232,8 @@ const Signup = () => {
                 <Paper elevation={3} sx={{
                     position: 'absolute',
                     transition: 'ease 1s',
-                    top: `${wrongFullname || wrongPhoneNumber || wrongRetypePassword || wrongUsername || wrongEmail || wrongPassword ? '90px' : 'unset'}`, 
-                    display: `${wrongEmail || wrongPassword ? 'flex' : 'none'}`,
+                    top: `${wrongFullname || wrongPhoneNumber || wrongRetypePassword || wrongEmail || wrongPassword ? '90px' : 'unset'}`, 
+                    display: `${wrongFullname || wrongPhoneNumber || wrongRetypePassword || wrongEmail || wrongPassword ? 'flex' : 'none'}`,
                 }}>
                     <Alert severity="warning">
                         {warning}
@@ -242,6 +268,7 @@ const Signup = () => {
                             key={index}
                             error={input.error}
                             label={input.label} 
+                            type={input.type} 
                             variant="outlined" 
                             onChange={event => handleChange(event)}
                             id={input.name} 
