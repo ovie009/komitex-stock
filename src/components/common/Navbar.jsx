@@ -1,11 +1,14 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { AccountTypeContext } from "../../App";
 import { useState, useContext } from "react";
-import { AppBar, Box, Drawer, Container, Toolbar, IconButton, Stack, Button } from "@mui/material";
+import { AppBar, Box, Drawer, Container, Toolbar, IconButton, Stack, Button, Avatar } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import logoLight from "../../assets/icons/logo.svg";
 import SidebarLinks from "./SidebarLinks";
 import LogoutIcon from '@mui/icons-material/Logout';
+import CloseIcon from '@mui/icons-material/Close';
+import { BASE_IMAGE } from "../../utils/api/BASE_URL";
+
 
 const Navbar = () => {
 
@@ -21,6 +24,10 @@ const Navbar = () => {
         window.location.reload();
     }
 
+    const avatarImage = BASE_IMAGE + '/' + JSON.parse(localStorage.getItem('profile_image'));
+
+    // location
+    const location = useLocation();
 
     return (
         <AppBar position="static" sx={{
@@ -85,7 +92,25 @@ const Navbar = () => {
                 anchor="right"
                 open={isDrawerOpen}
                 onClose={() => setIsDrawerOpen(false)}
+                sx={{
+                    position: 'relative',
+                }}
             >   
+                <IconButton 
+                    size="large" 
+                    edge="start" 
+                    aria-label="close-menu" 
+                    onClick={() => setIsDrawerOpen(false)}
+                    sx={{
+                        position: 'absolute',
+                        right: '10px',
+                        top: '10px'
+                    }}
+                >
+                    <CloseIcon sx={{
+                        color: 'komitexLight.main'
+                    }} />
+                </IconButton>
                 <Box 
                     role='presentation' 
                     display='flex'
@@ -99,19 +124,38 @@ const Navbar = () => {
                     <Stack spacing={1} direction="column" alignItems={'flex-start'} pl={'10px'} py={'10px'}>
                         <SidebarLinks setIsDrawerOpen={setIsDrawerOpen} />
                     </Stack>
-                    <Button
-                        size="large"
-                        color="error"
-                        startIcon={<LogoutIcon />}
-                        sx={{
-                            textTransform: 'capitalize',
-                            fontWeight: 'bold',
-                            color: 'error.light',
-                        }}
-                        onClick={logout}
-                    >
-                        Logout
-                    </Button>
+                    <Stack spacing={1} direction="column" alignContent={"flex-start"}>
+                        <Button
+                            size="large"
+                            onClick={() => setIsDrawerOpen(false)}
+                            sx={{
+                                textTransform: 'capitalize',
+                                fontWeight: 'bold',
+                                display: 'flex',
+                                gap: '10px',
+                                color: `${location.pathname.toLowerCase === ('/account').toLowerCase ? "komitexLight.main" : "komitexLight.muted"}`,
+                            }}
+                            fullWidth
+                        >
+                            <Avatar alt="user avatar" src={avatarImage} />
+                            <Link to="/Account">My Account</Link>
+                        </Button>
+
+                        <Button
+                            size="large"
+                            color="error"
+                            startIcon={<LogoutIcon />}
+                            sx={{
+                                textTransform: 'capitalize',
+                                fontWeight: 'bold',
+                                color: 'error.light',
+                            }}
+                            fullWidth
+                            onClick={logout}
+                        >
+                            Logout
+                        </Button>
+                    </Stack>
                 </Box>
             </Drawer>
         </AppBar>

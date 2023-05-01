@@ -12,6 +12,7 @@ import Staffs from './pages/common/Staffs';
 import Stock from './pages/common/Stock';
 import Waybill from './pages/common/Waybill';
 import Teams from './pages/common/Teams';
+import Account from "./pages/common/Account";
 import { CssBaseline } from "@mui/material";
 import { createContext, useState } from "react";
 import {createTheme, colors, ThemeProvider} from "@mui/material";
@@ -74,6 +75,8 @@ const App = () => {
                             <Route path="login" element={<Login />} />
                             {/* teams route */}
                             <Route path="teams" element={<Teams />} />
+                            {/* teams route */}
+                            <Route path="account" element={<Account />} />
                         </Route>
                     </Routes>
                 </BrowserRouter>

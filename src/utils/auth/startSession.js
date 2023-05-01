@@ -7,6 +7,7 @@ const startSession = (userData) => {
     localStorage.setItem('fullname', JSON.stringify(userData.fullname));
     localStorage.setItem('phone_number', JSON.stringify(userData.phone_number));
     localStorage.setItem('preferred_page', JSON.stringify(userData.preferred_page));
+    localStorage.setItem('profile_image', JSON.stringify(userData.profile_image));
 }
 
 export default startSession;

@@ -203,6 +203,11 @@ const SidebarLinks = ({setIsDrawerOpen}) => {
         }
     ]
 
+    function checkPathString(str, arr) {
+        const lowerStr = str.toLowerCase();
+        return arr.every((item) => item.toLowerCase() === lowerStr);
+    }
+
     const links = handleLinks();
 
     return links.map((link) => {
@@ -211,7 +216,7 @@ const SidebarLinks = ({setIsDrawerOpen}) => {
                 onClick={closeSideBar} 
                 variant='text' 
                 size='large' 
-                startIcon={location.pathname === link.path ? link.activeIcon : link.inactiveIcon}
+                startIcon={location.pathname.toLowerCase === link.path.toLowerCase ? link.activeIcon : link.inactiveIcon}
                 key={link.page} 
                 // color={"komitexLight.muted"}
                 sx={{
