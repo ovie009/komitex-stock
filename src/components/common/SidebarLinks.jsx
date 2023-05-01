@@ -203,11 +203,6 @@ const SidebarLinks = ({setIsDrawerOpen}) => {
         }
     ]
 
-    function checkPathString(str, arr) {
-        const lowerStr = str.toLowerCase();
-        return arr.every((item) => item.toLowerCase() === lowerStr);
-    }
-
     const links = handleLinks();
 
     return links.map((link) => {

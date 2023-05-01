@@ -65,7 +65,7 @@ const Login = () => {
         });
     }
 
-    console.log(userInfo);
+    // console.log(userInfo);
 
     const handleLogin = async () => {
 
