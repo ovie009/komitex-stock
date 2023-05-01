@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from "react"
 import { Link, useNavigate } from "react-router-dom";
 import startSession from "../../utils/auth/startSession";
 import { AccountTypeContext } from "../../App";
-import { Typography, Container, Paper, Box, TextField, Button, IconButton, InputAdornment, OutlinedInput, InputLabel, FormControl } from "@mui/material";
+import { Typography, Container, Paper, Box, TextField, Button, IconButton, InputAdornment, OutlinedInput, InputLabel, FormControl, Alert } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import getUser from "../../utils/auth/getUser";
 
@@ -11,6 +11,9 @@ const Login = () => {
 
     // use navigate
     const navigate = useNavigate();
+
+    // state to show erro text during login
+    const [warning, setWarning] = useState('');
 
     // variable to indicate wrong email
     const [wrongEmail, setWrongEmail] = useState(false);
@@ -72,6 +75,7 @@ const Login = () => {
         if (userInfo.email_address === '' || userInfo.password === '') {
             if (userInfo.email_address === '') setWrongEmail(true);
             if (userInfo.password === '') setWrongPassword(true);
+            setWarning('Empty Feilds');
             return;
         }
 
@@ -79,8 +83,10 @@ const Login = () => {
         
         if (response) {
             if (response === 'incorrect password') {
+                setWarning(response);
                 return setWrongPassword(true);
             } else if (response === 'user doesn\'t exist') {
+                setWarning(response);
                 return setWrongEmail(true);
             }
     
@@ -106,6 +112,16 @@ const Login = () => {
                     height: 'fit-content',
                 }}
             >   
+                <Paper elevation={3} sx={{
+                    position: 'absolute',
+                    transition: 'ease 1s',
+                    top: `${wrongEmail || wrongPassword ? '90px' : 'unset'}`, 
+                    display: `${wrongEmail || wrongPassword ? 'flex' : 'none'}`,
+                }}>
+                    <Alert severity="warning">
+                        {warning}
+                    </Alert>
+                </Paper>
                 <Typography 
                     fontWeight={'bold'}
                     variant="h4" 

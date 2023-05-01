@@ -2,9 +2,9 @@ import { useState, useEffect, useContext } from "react"
 import { Link, useNavigate } from "react-router-dom";
 import startSession from "../../utils/auth/startSession";
 import { AccountTypeContext } from "../../App";
-import { Typography, Container, Paper, Box, TextField, Button, IconButton, InputAdornment, OutlinedInput, InputLabel, FormControl, MenuItem, Select } from "@mui/material";
+import { Typography, Container, Paper, Box, TextField, Button, IconButton, InputAdornment, OutlinedInput, InputLabel, FormControl, MenuItem, Select, Alert } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import getUser from "../../utils/auth/getUser";
+import signupNewUser from "../../utils/auth/signupNewUser";
 
 const Signup = () => {
     // use navigate
@@ -25,6 +25,8 @@ const Signup = () => {
     const [showPassword, setShowPassword] = useState(false);
     // state to control visibility or retyped password
     const [showRetypedPassword, setShowRetypedPassword] = useState(false);
+    // state to show erro text during login
+    const [warning, setWarning] = useState('');
 
     // toggle password visibility
     const handleClickShowPassword = () => setShowPassword(show => !show);
@@ -115,7 +117,7 @@ const Signup = () => {
         return false;
     }
 
-    console.table(userInfo);
+    console.table(userInfo)
 
     // handle user signup
     const handleSignup = async () => {
@@ -127,10 +129,10 @@ const Signup = () => {
             if (userInfo.email_address === '') setWrongEmail(true);
             if (userInfo.password === '') setWrongPassword(true);
             if (userInfo.retype_password === '') setWrongRetypePassword(true);
-            return; // end function
+            return setWarning('Empty Fields'); // end function
         }
 
-        let response = await getUser(userInfo);
+        let response = await signupNewUser(userInfo);
         
         if (response) {
             if (response === 'incorrect password') {
@@ -201,6 +203,16 @@ const Signup = () => {
                     height: 'fit-content',
                 }}
             >   
+                <Paper elevation={3} sx={{
+                    position: 'absolute',
+                    transition: 'ease 1s',
+                    top: `${wrongFullname || wrongPhoneNumber || wrongRetypePassword || wrongUsername || wrongEmail || wrongPassword ? '90px' : 'unset'}`, 
+                    display: `${wrongEmail || wrongPassword ? 'flex' : 'none'}`,
+                }}>
+                    <Alert severity="warning">
+                        {warning}
+                    </Alert>
+                </Paper>
                 <Typography 
                     fontWeight={'bold'}
                     variant="h4" 
@@ -305,7 +317,7 @@ const Signup = () => {
                     <Typography variant="caption" sx={{
                         color: 'komitexLight.muted',
                     }}>
-                        Already have an account? <Link to="/signup" style={{color: "#07427C", textDecoration: 'underline', fontWeight: 'bold'}}>Click here</Link> to login
+                        Already have an account? <Link to="/login" style={{color: "#07427C", textDecoration: 'underline', fontWeight: 'bold'}}>Click here</Link> to login
                     </Typography>
                 </Paper>
             </Box>

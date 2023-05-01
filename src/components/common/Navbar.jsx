@@ -30,7 +30,7 @@ const Navbar = () => {
     const location = useLocation();
 
     return (
-        <AppBar position="static" sx={{
+        <AppBar position="sticky" sx={{
             backgroundColor: '#fff',
         }}>
             <Container maxWidth="xl">
