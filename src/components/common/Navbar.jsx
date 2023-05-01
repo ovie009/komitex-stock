@@ -54,13 +54,12 @@ const Navbar = () => {
                                     <Link to="/signup">signup</Link>
                                 </Button>
                                 <Button 
-                                    variant='outlined' 
+                                    variant='contained'
+                                    color="komitexLight" 
                                     size='medium'
                                     sx={{
                                         textTransform: 'capitalize',
                                         fontWeight: 'bold',
-                                        color: 'komitexLight.main',
-                                        borderColor: 'komitexLight.main',
                                     }}
                                 >
                                     <Link to="/login">Login</Link>

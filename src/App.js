@@ -28,7 +28,7 @@ const App = () => {
         palette: {
             komitexLight: {
                 main: '#07427C',
-                muted: colors.blueGrey[300],
+                muted: colors.blueGrey[400],
             },
             komitexDark: {
                 main: '#07427C',

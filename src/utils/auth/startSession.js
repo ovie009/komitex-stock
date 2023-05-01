@@ -1,4 +1,4 @@
-const setSession = (userData) => {
+const startSession = (userData) => {
     // save session token
     localStorage.setItem('session_token', JSON.stringify(userData.session_token));
     localStorage.setItem('company_id', JSON.stringify(userData.session_token));
@@ -9,4 +9,4 @@ const setSession = (userData) => {
     localStorage.setItem('preferred_page', JSON.stringify(userData.preferred_page));
 }
 
-export default setSession;
+export default startSession;
