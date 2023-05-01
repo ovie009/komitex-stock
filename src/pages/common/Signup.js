@@ -218,7 +218,7 @@ const Signup = () => {
     return (
         <Container maxWidth="xl">
             <Box
-                py="50px" 
+                py="30px" 
                 sx={{
                     display: 'flex',
                     flexDirection: 'column',
